@@ -5,5 +5,5 @@ import json
 
 data = dict()
 build_id = os.environ.get('BUILD_ID', '0')
-data['version'] = {'build': build_id}
+data['version'] = {'ref': build_id}
 print(json.dumps(data))
