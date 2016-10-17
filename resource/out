@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import json
+
+data = dict()
+print(json.dumps(data))
