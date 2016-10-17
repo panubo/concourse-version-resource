@@ -1,7 +1,18 @@
 #!/usr/bin/env python
 
 import json
+import os
 import sys
 
-data = json.load(sys.stdin)
+
+os.chdir(sys.argv[1])
+data = dict()
+for e in ('build_id', 'build_name', 'build_job_name', 'build_pipeline_name', 'atc_external_url'):
+    data[e] = os.environ.get(e.upper(), '')
+
+for k, v in data.iteritems():
+    f = open(k.replace('_','-'), 'w')
+    f.write(v)
+    f.close()
+
 print(json.dumps(data))
