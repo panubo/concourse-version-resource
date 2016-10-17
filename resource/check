@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+import os
 import json
 
 data = list()
-# data.append({'ref': '0'})
+build_id = os.environ.get('BUILD_ID', '0')
+data.append({'ref': build_id})
 print(json.dumps(data))
