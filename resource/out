@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
+import os
 import json
 
+build_id = os.environ.get('BUILD_ID', '0')
+
 data = dict()
+data['version'] = {'build': build_id}
 print(json.dumps(data))
