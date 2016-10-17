@@ -1,0 +1,34 @@
+---
+resources:
+
+- name: python-docker-image-resource
+  type: docker-image
+  source:
+    repository: python
+    pull_tag: '2.7'
+
+- name: git-resource
+  type: git
+  source:
+    uri: https://github.com/panubo/concourse-version-resource.git
+    branch: master
+
+- name: docker-image-resource
+  type: docker-image
+  source:
+    email: {{docker_hub_mail}}
+    username: {{docker_hub_user}}
+    password: {{docker_hub_pass}}
+    repository: panubo/concourse-version-resource
+
+jobs:
+
+- name: version-resource
+  plan:
+  - get: python-docker-image-resource
+    trigger: true
+    params: {save: true}
+  - get: git-resource
+    trigger: true
+  - put: docker-image-resource
+    params: {build: git-resource, tag_as_latest: true, load_base: python-docker-image-resource}
